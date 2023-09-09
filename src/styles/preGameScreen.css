@@ -1,0 +1,93 @@
+:root {
+  --black-color: black;
+  --white-color: white;
+}
+
+@font-face {
+  font-family: 'Gamer';
+  src: url('../../fonts/PressStart2P-Regular.ttf');
+}
+
+.container {
+  background: var(--black-color);
+  height: 100dvh;
+  width: 100dvw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--white-color);
+  font-family: 'Gamer';
+}
+
+.playerContainer {
+  width: 90dvw;
+  margin: 160px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.playerTag {
+  display: inline-flex;
+  align-items: center;
+}
+
+p {
+  display: inline;
+  padding: 16px;
+}
+
+.playerName {
+  height: 84px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 84px;
+}
+
+@keyframes bounce {
+  0% {
+    scale: 1.1;
+  }
+  50% {
+    scale: 1.2;
+  }
+  100% {
+    scale: 1.1;
+  }
+}
+
+@keyframes rainbow {
+  0% {
+    background: yellow;
+  }
+  50% {
+    background: orange;
+  }
+  100% {
+    background: yellow;
+  }
+}
+
+.startButton {
+  width: 200px;
+  height: 100px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Gamer';
+  font-size: 24px;
+  color: var(--black-color);
+  transition: scale 0.2s;
+  animation: bounce 1s infinite, rainbow 1s infinite;
+}
+
+.startButton:disabled {
+  background: var(--white-color);
+  opacity: 0.2;
+  scale: 1;
+  animation: none;
+}

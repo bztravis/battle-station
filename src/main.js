@@ -11,10 +11,10 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    fullscreen: true,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
-    frame: false,
   })
 
   // and load the index.html of the app.
