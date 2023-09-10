@@ -1,0 +1,48 @@
+.actionContainer {
+  width: 90dvw;
+  height: 400px;
+  padding: 1.5dvw;
+  position: fixed;
+  left: calc(5dvw);
+  bottom: 5dvw;
+  background: #0f172a;
+  border: 1px solid white;
+}
+
+h2 {
+  margin: 0;
+  margin-bottom: 1dvw;
+  font-size: 24px;
+}
+
+p {
+  font-size: 16px;
+}
+
+.optionContainer {
+  height: calc(400px - 3dvw - 20px - 1dvw);
+  display: flex;
+  gap: 1dvw;
+}
+
+.actionOption {
+  height: 324px;
+  flex-grow: 1;
+  border: solid 1px white;
+  font-size: 16px;
+  color: white;
+  text-shadow: 0 0 24px black;
+  object-fit: fill;
+}
+
+.actionOption:hover {
+  box-shadow: 0 0 0 4px white;
+}
+
+.actionOption:disabled {
+  opacity: 0.2;
+}
+
+.actionOption:disabled:hover {
+  box-shadow: none;
+}

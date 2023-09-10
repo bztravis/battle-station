@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
+import SelectAction from './SelectAction'
 import SelectByteling from './SelectByteling'
 import { ProgressDisplay } from './ProgressDisplay'
 import styles from '../styles/gameView.css'
@@ -10,7 +11,7 @@ export default function GameView({ drives, setInGame }) {
     drives[0]?.bytelings,
     drives[1]?.bytelings,
   ])
-  const [activeBytelings, setActiveBytelings] = useState([0, 0])
+  const [activeBytelings, setActiveBytelings] = useState([null, null])
   // console.log('bytelings', bytelings)
 
   const turnFlow = {
@@ -25,9 +26,9 @@ export default function GameView({ drives, setInGame }) {
         )
           return 'winP1'
         else
-          return bytelings[1][activeBytelings[1]].stats.currentHealth <= 0
-            ? 'chooseP1'
-            : 'actionP0'
+          return bytelings[1][activeBytelings?.[1]]?.stats.currentHealth > 0
+            ? 'actionP0'
+            : 'chooseP1'
       },
     },
     chooseP1: {
@@ -38,9 +39,9 @@ export default function GameView({ drives, setInGame }) {
         )
           return 'winP0'
         else
-          return bytelings[0][activeBytelings[0]].stats.currentHealth <= 0
-            ? 'chooseP0'
-            : 'actionP1'
+          return bytelings[0][activeBytelings?.[0]]?.stats.currentHealth > 0
+            ? 'actionP1'
+            : 'chooseP0'
       },
     },
     actionP0: {
@@ -145,6 +146,16 @@ export default function GameView({ drives, setInGame }) {
         <SelectByteling
           bytelings={bytelings}
           player={parseInt(playerTurn.slice(-1))}
+          setActiveBytelings={setActiveBytelings}
+          setPlayerTurn={setPlayerTurn}
+          turnFlow={turnFlow}
+        />
+      )}
+      {playerTurn.slice(0, 6) === 'action' && (
+        <SelectAction
+          bytelings={bytelings}
+          player={parseInt(playerTurn.slice(-1))}
+          activeBytelings={activeBytelings}
           setActiveBytelings={setActiveBytelings}
           setPlayerTurn={setPlayerTurn}
           turnFlow={turnFlow}
