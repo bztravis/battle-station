@@ -1,5 +1,11 @@
+@font-face {
+  font-family: 'Gamer';
+  src: url('../fonts/PressStart2P-Regular.ttf');
+}
+
 * {
   box-sizing: border-box;
+  font-family: 'Gamer';
 }
 
 body {

@@ -5,17 +5,13 @@ import { ProgressDisplay } from './ProgressDisplay'
 import styles from '../styles/gameView.css'
 
 export default function GameView({ drives, setInGame }) {
-  const [playerTurn, setPlayerTurn] = useState('selectP0')
+  const [playerTurn, setPlayerTurn] = useState('chooseP0')
   const [bytelings, setBytelings] = useState([
     drives[0]?.bytelings,
     drives[1]?.bytelings,
   ])
   const [activeBytelings, setActiveBytelings] = useState([0, 0])
-  console.log('drives', drives)
-
-  useEffect(() => {
-    setBytelings([drives[0]?.bytelings, drives[1]?.bytelings])
-  }, [drives])
+  // console.log('bytelings', bytelings)
 
   const turnFlow = {
     start: {
@@ -28,7 +24,10 @@ export default function GameView({ drives, setInGame }) {
           0
         )
           return 'winP1'
-        else return activeBytelings[1] ? 'chooseP1' : 'actionP0'
+        else
+          return bytelings[1][activeBytelings[1]].stats.currentHealth <= 0
+            ? 'chooseP1'
+            : 'actionP0'
       },
     },
     chooseP1: {
@@ -38,7 +37,10 @@ export default function GameView({ drives, setInGame }) {
           0
         )
           return 'winP0'
-        else return activeBytelings[0] ? 'chooseP0' : 'actionP1'
+        else
+          return bytelings[0][activeBytelings[0]].stats.currentHealth <= 0
+            ? 'chooseP0'
+            : 'actionP1'
       },
     },
     actionP0: {
@@ -93,7 +95,7 @@ export default function GameView({ drives, setInGame }) {
               className="sprite"
               style={{
                 backgroundImage: `url(${
-                  bytelings[activeBytelings?.[0]]?.imageUrl
+                  bytelings[0][activeBytelings[0]]?.imageUrl
                 })`,
               }}
             ></div>
@@ -120,7 +122,7 @@ export default function GameView({ drives, setInGame }) {
               className="sprite"
               style={{
                 backgroundImage: `url(${
-                  bytelings[activeBytelings?.[1]]?.imageUrl
+                  bytelings[1][activeBytelings[1]]?.imageUrl
                 })`,
               }}
             ></div>
@@ -142,10 +144,13 @@ export default function GameView({ drives, setInGame }) {
           </div>
         </div>
       </div>
-      {playerTurn === 'selectP0' && (
+      {playerTurn === 'chooseP0' && (
         <SelectByteling
           bytelings={bytelings}
           player={parseInt(playerTurn.slice(-1))}
+          setActiveBytelings={setActiveBytelings}
+          setPlayerTurn={setPlayerTurn}
+          turnFlow={turnFlow}
         />
       )}
     </div>
