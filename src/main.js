@@ -1,5 +1,6 @@
 const { app, BrowserWindow } = require('electron')
 const drivelist = require('drivelist')
+const fs = require('fs')
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -49,19 +50,25 @@ app.on('activate', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.\\
 
+let delayBeforeNext
+
 const checkFiles = async (prev) => {
-  console.log('running')
+  delayBeforeNext = 100
+  // console.log('running')
   const drives = await drivelist.list()
 
-  if (JSON.stringify(prev) == JSON.stringify(drives)) console.log('equal')
-  else {
-    console.log('PREVIOUS', JSON.stringify(prev))
-    console.log('DRIVES', JSON.stringify(drives))
+  if (JSON.stringify(prev) != JSON.stringify(drives)) {
+    // console.log('PREVIOUS', JSON.stringify(prev))
+    // console.log('DRIVES', JSON.stringify(drives))
+    delayBeforeNext = 2000
+    setTimeout(() => {
+      console.log('USB DRIVES', getUSBDrives(drives))
+    }, 1000)
   }
 
   setTimeout(() => {
     checkFiles(drives)
-  }, 1000)
+  }, delayBeforeNext)
 }
 
 const startCheckFiles = async () => {
@@ -69,3 +76,12 @@ const startCheckFiles = async () => {
 }
 
 startCheckFiles()
+
+function getUSBDrives(drives) {
+  let results = []
+  for (let i = 0; i < drives.length; i++) {
+    if (drives[i].isUSB) results = [...results, JSON.stringify(drives[i])]
+  }
+
+  return results
+}
