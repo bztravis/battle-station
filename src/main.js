@@ -56,11 +56,12 @@ const checkFiles = async (prev) => {
   // console.log('running')
   const drives = await drivelist.list()
 
+  let driveConfigs = []
   if (JSON.stringify(prev) != JSON.stringify(drives)) {
     setTimeout(() => {
       // console.log('USB DRIVES', getUSBDrives(drives))
       const driveCandidates = getUSBDrives(drives)
-      let driveConfigs = []
+
       for (let i = 0; i < driveCandidates.length; i++) {
         // console.log('driveCandidates[i]', driveCandidates[i])
         try {
@@ -88,6 +89,11 @@ const checkFiles = async (prev) => {
           continue
         }
       }
+
+      BrowserWindow.getAllWindows()[0].webContents.send(
+        'drives:UPDATE_DRIVES',
+        driveConfigs
+      )
     }, 1000)
   }
   setTimeout(() => {
