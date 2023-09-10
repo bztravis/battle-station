@@ -1,0 +1,31 @@
+.selectContainer {
+  width: 90dvw;
+  height: 300px;
+  padding: 1.5dvw;
+  position: fixed;
+  left: calc(5dvw);
+  bottom: 5dvw;
+  background: #0f172a;
+  border: 1px solid white;
+}
+
+h2 {
+  margin: 0;
+  margin-bottom: 1dvw;
+  font-size: 16px;
+}
+
+.optionContainer {
+  display: flex;
+  gap: 2.5dvw;
+}
+
+.selectOption {
+  height: 100px;
+  flex-grow: 1;
+  border: solid 1px white;
+}
+
+.selectOption:hover {
+  box-shadow: 0 0 0 4px white;
+}
