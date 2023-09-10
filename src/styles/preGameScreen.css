@@ -1,5 +1,5 @@
 :root {
-  --black-color: black;
+  --black-color: #0f172a;
   --white-color: white;
 }
 
@@ -19,6 +19,7 @@
   text-align: center;
   color: var(--white-color);
   font-family: 'Gamer';
+  z-index: -1;
 }
 
 .playerContainer {
@@ -27,16 +28,23 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  opacity: 1;
 }
 
 .playerTag {
   display: inline-flex;
   align-items: center;
+  z-index: 1;
+}
+
+h1 {
+  z-index: 1;
 }
 
 p {
   display: inline;
   padding: 16px;
+  z-index: 1;
 }
 
 .playerName {
@@ -45,6 +53,7 @@ p {
   flex-direction: column;
   justify-content: center;
   height: 84px;
+  z-index: 1;
 }
 
 @keyframes bounce {
@@ -62,12 +71,15 @@ p {
 @keyframes rainbow {
   0% {
     background: orange;
+    box-shadow: 0 0 96px 0 #ffa50060;
   }
   50% {
     background: yellow;
+    box-shadow: 0 0 72px 0 #ffff0060;
   }
   100% {
     background: orange;
+    box-shadow: 0 0 96px 0 #ffa50060;
   }
 }
 
@@ -83,6 +95,7 @@ p {
   color: var(--black-color);
   transition: scale 0.2s;
   animation: bounce 1s infinite, rainbow 1s infinite;
+  z-index: 1;
 }
 
 .startButton:disabled {
@@ -90,4 +103,52 @@ p {
   opacity: 0.2;
   scale: 1;
   animation: none;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOutLite {
+  0% {
+    opacity: 0.14;
+  }
+  100% {
+    opacity: 0.18;
+  }
+}
+
+.flare {
+  width: 100dvw;
+  height: 100dvh;
+  position: fixed;
+  background: yellow;
+  opacity: 0;
+  animation: fadeOut 1s;
+  z-index: 2;
+}
+
+.leftReadyBackground {
+  width: 50dvw;
+  height: 100dvh;
+  position: fixed;
+  left: 0;
+  z-index: 0;
+  opacity: 0.1;
+  /* animation: fadeOutLite 1s alternate infinite; */
+}
+
+.rightReadyBackground {
+  width: 50dvw;
+  height: 100dvh;
+  position: fixed;
+  right: 0;
+  z-index: 0;
+  opacity: 0.1;
+  /* animation: fadeOutLite 1s alternate infinite; */
 }

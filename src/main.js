@@ -18,6 +18,7 @@ const createWindow = () => {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
   })
+  mainWindow.maximize()
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
@@ -52,7 +53,6 @@ app.on('activate', () => {
 // code. You can also put them in separate files and import them here.\\
 
 const checkFiles = async (prev) => {
-  delayBeforeNext = 100
   // console.log('running')
   const drives = await drivelist.list()
 
@@ -102,7 +102,7 @@ const checkFiles = async (prev) => {
 }
 
 const startCheckFiles = async () => {
-  checkFiles(await drivelist.list())
+  checkFiles({})
 }
 startCheckFiles()
 
