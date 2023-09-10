@@ -5,9 +5,10 @@ import GameView from './components/GameView'
 
 export default function BattleStation() {
   const [drives, setDrives] = useState([])
-  const [inGame, setInGame] = useState(false)
+  const [inGame, setInGame] = useState(true)
   useEffect(() => {
     window.electronAPI.onUpdateDrives((event, drives) => {
+      console.log(drives)
       setDrives(drives)
     })
   }, [])
