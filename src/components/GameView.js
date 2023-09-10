@@ -4,6 +4,7 @@ import SelectAction from './SelectAction'
 import SelectByteling from './SelectByteling'
 import { ProgressDisplay } from './ProgressDisplay'
 import styles from '../styles/gameView.css'
+import YouWin from '../components/YouWin'
 
 export default function GameView({ drives, setInGame }) {
   const [playerTurn, setPlayerTurn] = useState('chooseP0')
@@ -20,11 +21,15 @@ export default function GameView({ drives, setInGame }) {
     },
     chooseP0: {
       next: (bytelings, activeBytelings) => {
+        console.log(
+          'bytelings[0].filter((elem) => elem.stats.currentHealth > 0).length',
+          bytelings[1].filter((elem) => elem.stats.currentHealth > 0).length
+        )
         if (
-          bytelings[0].filter((elem) => elem.stats.currentHealth > 0).length ===
+          bytelings[1].filter((elem) => elem.stats.currentHealth > 0).length ===
           0
         )
-          return 'winP1'
+          return 'winP0'
         else
           return bytelings[1][activeBytelings?.[1]]?.stats.currentHealth > 0
             ? 'actionP0'
@@ -33,11 +38,15 @@ export default function GameView({ drives, setInGame }) {
     },
     chooseP1: {
       next: (bytelings, activeBytelings) => {
+        console.log(
+          'bytelings[1].filter((elem) => elem.stats.currentHealth > 0).length',
+          bytelings[0].filter((elem) => elem.stats.currentHealth > 0).length
+        )
         if (
-          bytelings[1].filter((elem) => elem.stats.currentHealth > 0).length ===
+          bytelings[0].filter((elem) => elem.stats.currentHealth > 0).length ===
           0
         )
-          return 'winP0'
+          return 'winP1'
         else
           return bytelings[0][activeBytelings?.[0]]?.stats.currentHealth > 0
             ? 'actionP1'
@@ -52,6 +61,19 @@ export default function GameView({ drives, setInGame }) {
           bytelings[0][activeBytelings[0]].stats.currentHealth,
           bytelings[1][activeBytelings[1]].stats.currentHealth
         )
+        console.log(
+          'bytelings[1][activeBytelings[1]].stats.currentHealth > 0',
+          bytelings[1][activeBytelings[1]].stats.currentHealth > 0
+        )
+        console.log(
+          'bytelings[0].filter((elem) => elem.stats.currentHealth > 0).length',
+          bytelings[1].filter((elem) => elem.stats.currentHealth > 0).length
+        )
+        if (
+          bytelings[1].filter((elem) => elem.stats.currentHealth > 0).length ===
+          0
+        )
+          return 'winP0'
         return bytelings[1][activeBytelings[1]].stats.currentHealth > 0
           ? 'actionP1'
           : 'chooseP1'
@@ -65,6 +87,19 @@ export default function GameView({ drives, setInGame }) {
           bytelings[0][activeBytelings[0]].stats.currentHealth,
           bytelings[0][activeBytelings[0]].stats.currentHealth
         )
+        console.log(
+          'bytelings[0][activeBytelings[0]].stats.currentHealth > 0',
+          bytelings[0][activeBytelings[0]].stats.currentHealth > 0
+        )
+        console.log(
+          'bytelings[0].filter((elem) => elem.stats.currentHealth > 0).length',
+          bytelings[0].filter((elem) => elem.stats.currentHealth > 0).length
+        )
+        if (
+          bytelings[0].filter((elem) => elem.stats.currentHealth > 0).length ===
+          0
+        )
+          return 'winP1'
         return bytelings[0][activeBytelings[0]].stats.currentHealth > 0
           ? 'actionP0'
           : 'chooseP0'
@@ -178,6 +213,8 @@ export default function GameView({ drives, setInGame }) {
           turnFlow={turnFlow}
         />
       )}
+      {playerTurn === 'winP0' && <YouWin username={drives[0].profile.name} />}
+      {playerTurn === 'winP1' && <YouWin username={drives[1].profile.name} />}
     </div>
   )
 }
