@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import SelectByteling from './SelectByteling'
+import { ProgressDisplay } from './ProgressDisplay'
 import styles from '../styles/gameView.css'
 
 export default function GameView({ drives, setInGame }) {
@@ -56,6 +57,9 @@ export default function GameView({ drives, setInGame }) {
     },
   }
 
+  console.log(bytelings)
+  console.log(activeBytelings[0])
+
   return (
     <div className="container">
       <div className="infoContainer">
@@ -94,7 +98,21 @@ export default function GameView({ drives, setInGame }) {
               }}
             ></div>
           </div>
-          <div className=""></div>
+          <div className="">
+            <h2>{bytelings[0][activeBytelings[0]]?.name}</h2>
+            <ProgressDisplay
+              statName="Health"
+              current={bytelings[0][activeBytelings[0]]?.stats.currentHealth}
+              max={bytelings[0][activeBytelings[0]]?.stats.maxHealth}
+              barColor="#dc2626"
+            />
+            <ProgressDisplay
+              statName="Mana"
+              current={bytelings[0][activeBytelings[0]]?.stats.currentMana}
+              max={bytelings[0][activeBytelings[0]]?.stats.maxMana}
+              barColor="#dc2626"
+            />
+          </div>
         </div>
         <div className="byteling">
           <div className="platform">
@@ -107,7 +125,21 @@ export default function GameView({ drives, setInGame }) {
               }}
             ></div>
           </div>
-          <div className=""></div>
+          <div className="">
+            <h2>{bytelings[1][activeBytelings[1]]?.name}</h2>
+            <ProgressDisplay
+              statName="Health"
+              current={bytelings[1][activeBytelings[1]]?.stats.currentHealth}
+              max={bytelings[1][activeBytelings[1]]?.stats.maxHealth}
+              barColor="#dc2626"
+            />
+            <ProgressDisplay
+              statName="Mana"
+              current={bytelings[1][activeBytelings[1]]?.stats.currentMana}
+              max={bytelings[1][activeBytelings[1]]?.stats.maxMana}
+              barColor="#dc2626"
+            />
+          </div>
         </div>
       </div>
       {playerTurn === 'selectP0' && (
