@@ -98,9 +98,8 @@ p {
   z-index: 1;
 }
 
-.startButton:disabled {
-  background: var(--white-color);
-  opacity: 0.2;
+.startButton.disabled {
+  background: #334155;
   scale: 1;
   animation: none;
 }

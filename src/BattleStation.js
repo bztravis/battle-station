@@ -1,9 +1,11 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import PreGameScreen from './components/PreGameScreen'
+import GameView from './components/GameView'
 
 export default function BattleStation() {
-  let [drives, setDrives] = useState([])
+  const [drives, setDrives] = useState([])
+  const [inGame, setInGame] = useState(false)
   useEffect(() => {
     window.electronAPI.onUpdateDrives((event, drives) => {
       setDrives(drives)
@@ -11,8 +13,11 @@ export default function BattleStation() {
   }, [])
   return (
     <>
-      <PreGameScreen drives={drives} />
-      {JSON.stringify(drives)}
+      {inGame ? (
+        <GameView drives={drives} setInGame={setInGame} />
+      ) : (
+        <PreGameScreen drives={drives} setInGame={setInGame} />
+      )}
     </>
   )
 }

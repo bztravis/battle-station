@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import styles from '../styles/PreGameScreen.css'
 
-export default function PreGameScreen({ drives }) {
+export default function PreGameScreen({ drives, setInGame }) {
   return (
     <div className={`container`}>
       <h1>Players, ready your drives!</h1>
@@ -30,20 +30,26 @@ export default function PreGameScreen({ drives }) {
           </p>
         </div>
       </div>
-      <button disabled={!drives[0] || !drives[1]} className="startButton">
+      <button
+        className={`startButton ${!drives[0] || !drives[1] ? 'disabled' : ''}`}
+        onClick={() => {
+          console.log('bruh')
+          setInGame(true)
+        }}
+      >
         Start
       </button>
       {drives[0] && drives[1] && <div className="flare"></div>}
       {drives[0] && (
         <div
           className="leftReadyBackground"
-          style={{ background: `${drives[0].profile.accentColor}` }}
+          style={{ background: `${drives[0]?.profile.accentColor}` }}
         ></div>
       )}
       {drives[1] && (
         <div
           className="rightReadyBackground"
-          style={{ background: `${drives[1].profile.accentColor}` }}
+          style={{ background: `${drives[1]?.profile.accentColor}` }}
         ></div>
       )}
     </div>
