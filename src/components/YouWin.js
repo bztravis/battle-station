@@ -1,11 +1,21 @@
 import React from 'react'
-import styles from '../styles/gameView.css'
 
 export default function YouWin({ username }) {
-    return (
-        <div className="container">
-            <h1>{username.toUpperCase()} WON THE MATCH!</h1>
-            
-        </div>
-    )
+  return (
+    <div
+      style={{
+        zIndex: 5,
+        background: 'black',
+        width: '100dvw',
+        height: '100dvh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <h1 style={{ color: 'white' }}>
+        {username.toUpperCase()} WON THE MATCH!
+      </h1>
+    </div>
+  )
 }
