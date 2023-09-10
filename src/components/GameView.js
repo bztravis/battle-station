@@ -141,7 +141,7 @@ export default function GameView({ drives, setInGame }) {
           </div>
         </div>
       </div>
-      {playerTurn === 'chooseP0' && (
+      {playerTurn.slice(0, 6) === 'choose' && (
         <SelectByteling
           bytelings={bytelings}
           player={parseInt(playerTurn.slice(-1))}
