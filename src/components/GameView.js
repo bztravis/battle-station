@@ -16,10 +16,10 @@ export default function GameView({ drives, setInGame }) {
 
   const turnFlow = {
     start: {
-      next: (bytelings) => 'actionP0',
+      next: (bytelings, activeBytelings) => 'actionP0',
     },
     chooseP0: {
-      next: (bytelings) => {
+      next: (bytelings, activeBytelings) => {
         if (
           bytelings[0].filter((elem) => elem.stats.currentHealth > 0).length ===
           0
@@ -32,7 +32,7 @@ export default function GameView({ drives, setInGame }) {
       },
     },
     chooseP1: {
-      next: (bytelings) => {
+      next: (bytelings, activeBytelings) => {
         if (
           bytelings[1].filter((elem) => elem.stats.currentHealth > 0).length ===
           0
@@ -45,17 +45,29 @@ export default function GameView({ drives, setInGame }) {
       },
     },
     actionP0: {
-      next: (bytelings) => {
-        return bytelings[activeBytelings[1]].stats.currentHealth <= 0
-          ? 'chooseP1'
-          : 'actionP1'
+      next: (bytelings, activeBytelings) => {
+        console.log(
+          'bytelings',
+          bytelings,
+          bytelings[0][activeBytelings[0]].stats.currentHealth,
+          bytelings[1][activeBytelings[1]].stats.currentHealth
+        )
+        return bytelings[1][activeBytelings[1]].stats.currentHealth > 0
+          ? 'actionP1'
+          : 'chooseP1'
       },
     },
     actionP1: {
-      next: (bytelings) => {
-        return bytelings[activeBytelings[0]].stats.currentHealth <= 0
-          ? 'chooseP0'
-          : 'actionP0'
+      next: (bytelings, activeBytelings) => {
+        console.log(
+          'bytelings',
+          bytelings,
+          bytelings[0][activeBytelings[0]].stats.currentHealth,
+          bytelings[0][activeBytelings[0]].stats.currentHealth
+        )
+        return bytelings[0][activeBytelings[0]].stats.currentHealth > 0
+          ? 'actionP0'
+          : 'chooseP0'
       },
     },
   }
@@ -87,7 +99,10 @@ export default function GameView({ drives, setInGame }) {
         </div>
       </div>
       <div className="bytelingContainer">
-        <div className="byteling">
+        <div
+          className="byteling"
+          // style={{ scale: parseInt(playerTurn.slice(-1)) === 0 ? 1.1 : 1 }}
+        >
           <div className="platform">
             <div
               className="sprite"
@@ -145,6 +160,7 @@ export default function GameView({ drives, setInGame }) {
       {playerTurn.slice(0, 6) === 'choose' && (
         <SelectByteling
           bytelings={bytelings}
+          activeBytelings={activeBytelings}
           player={parseInt(playerTurn.slice(-1))}
           setActiveBytelings={setActiveBytelings}
           setPlayerTurn={setPlayerTurn}
@@ -154,6 +170,7 @@ export default function GameView({ drives, setInGame }) {
       {playerTurn.slice(0, 6) === 'action' && (
         <SelectAction
           bytelings={bytelings}
+          setBytelings={setBytelings}
           player={parseInt(playerTurn.slice(-1))}
           activeBytelings={activeBytelings}
           setActiveBytelings={setActiveBytelings}

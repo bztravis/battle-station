@@ -3,7 +3,10 @@ import { useState } from 'react'
 import styles from '../styles/PreGameScreen.css'
 
 export default function PreGameScreen({ drives, setInGame }) {
-  setTimeout(() => setInGame(true), 5000)
+  if (drives.length === 2)
+    setTimeout(() => {
+      setInGame(true)
+    }, 3000)
   return (
     <div className={`container`}>
       <h1>Players, ready your drives!</h1>
@@ -35,10 +38,10 @@ export default function PreGameScreen({ drives, setInGame }) {
         className={`startButton ${!drives[0] || !drives[1] ? 'disabled' : ''}`}
         onClick={() => {
           console.log('bruh')
-          setInGame(true)
+          // setInGame(true)
         }}
       >
-        Start
+        {drives.length === 2 ? 'Starting...' : 'Start'}
       </button>
       {drives[0] && drives[1] && <div className="flare"></div>}
       {drives[0] && (

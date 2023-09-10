@@ -4,6 +4,7 @@ import styles from '../styles/selectByteling.css'
 export default function SelectByteling({
   bytelings,
   player,
+  activeBytelings,
   setActiveBytelings,
   setPlayerTurn,
   turnFlow,
@@ -25,8 +26,8 @@ export default function SelectByteling({
                 console.log('newState', newState)
                 setPlayerTurn((prev) => {
                   console.log('prev', prev)
-                  console.log(turnFlow[prev].next(bytelings))
-                  return turnFlow[prev].next(bytelings)
+                  console.log(turnFlow[prev].next(bytelings, activeBytelings))
+                  return turnFlow[prev].next(bytelings, activeBytelings)
                 })
                 return newState
               })

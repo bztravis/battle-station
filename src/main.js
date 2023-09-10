@@ -53,7 +53,7 @@ app.on('activate', () => {
 // code. You can also put them in separate files and import them here.\\
 
 const checkFiles = async (prev) => {
-  // console.log('running')
+  console.log('running')
   const drives = await drivelist.list()
 
   let driveConfigs = []
@@ -61,6 +61,7 @@ const checkFiles = async (prev) => {
     setTimeout(() => {
       // console.log('USB DRIVES', getUSBDrives(drives))
       const driveCandidates = getUSBDrives(drives)
+      console.log('driveCandidates', driveCandidates)
 
       for (let i = 0; i < driveCandidates.length; i++) {
         // console.log('driveCandidates[i]', driveCandidates[i])
@@ -68,6 +69,7 @@ const checkFiles = async (prev) => {
           const files = fs.readdirSync(`${driveCandidates[i]}`)
           if (files.includes('.driveduels')) {
             // console.log(files)
+            console.log('PARSE', `${driveCandidates[i]}/.driveduels`)
             driveConfigs = [
               ...driveConfigs,
               {
@@ -75,17 +77,21 @@ const checkFiles = async (prev) => {
                   fs.readFileSync(`${driveCandidates[i]}/.driveduels`, 'utf8')
                 ),
                 bytelings: files
-                  .filter((elem) => elem.slice(-9) === '.byteling')
-                  .map((elem) =>
-                    JSON.parse(
+                  .filter(
+                    (elem) => elem.slice(-9) === '.byteling' && elem[0] !== '.'
+                  )
+                  .map((elem) => {
+                    console.log('PARSE', `${driveCandidates[i]}/${elem}`)
+                    return JSON.parse(
                       fs.readFileSync(`${driveCandidates[i]}/${elem}`, 'utf8')
                     )
-                  ),
+                  }),
               },
             ]
             console.log('driveConfigs', JSON.stringify(driveConfigs))
           }
-        } catch {
+        } catch (err) {
+          console.log('err', err)
           continue
         }
       }
@@ -102,7 +108,7 @@ const checkFiles = async (prev) => {
 }
 
 const startCheckFiles = async () => {
-  checkFiles({})
+  checkFiles(await drivelist.list())
 }
 startCheckFiles()
 
