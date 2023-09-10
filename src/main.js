@@ -1,5 +1,5 @@
 const { app, BrowserWindow } = require('electron')
-const path = require('path')
+const drivelist = require('drivelist')
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -11,7 +11,7 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    fullscreen: true,
+    // fullscreen: true,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
@@ -47,4 +47,25 @@ app.on('activate', () => {
 })
 
 // In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
+// code. You can also put them in separate files and import them here.\\
+
+const checkFiles = async (prev) => {
+  console.log('running')
+  const drives = await drivelist.list()
+
+  if (JSON.stringify(prev) == JSON.stringify(drives)) console.log('equal')
+  else {
+    console.log('PREVIOUS', JSON.stringify(prev))
+    console.log('DRIVES', JSON.stringify(drives))
+  }
+
+  setTimeout(() => {
+    checkFiles(drives)
+  }, 1000)
+}
+
+const startCheckFiles = async () => {
+  checkFiles(await drivelist.list())
+}
+
+startCheckFiles()
