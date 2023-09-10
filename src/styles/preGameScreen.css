@@ -61,13 +61,13 @@ p {
 
 @keyframes rainbow {
   0% {
-    background: yellow;
-  }
-  50% {
     background: orange;
   }
-  100% {
+  50% {
     background: yellow;
+  }
+  100% {
+    background: orange;
   }
 }
 

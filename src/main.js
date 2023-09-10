@@ -1,6 +1,7 @@
 const { app, BrowserWindow } = require('electron')
 const drivelist = require('drivelist')
 const fs = require('fs')
+const { ipcRenderer, contextBridge } = require('electron')
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -63,14 +64,26 @@ const checkFiles = async (prev) => {
       for (let i = 0; i < driveCandidates.length; i++) {
         // console.log('driveCandidates[i]', driveCandidates[i])
         try {
-          if (fs.readdirSync(`${driveCandidates[i]}`).includes('.driveduels'))
+          const files = fs.readdirSync(`${driveCandidates[i]}`)
+          if (files.includes('.driveduels')) {
+            // console.log(files)
             driveConfigs = [
               ...driveConfigs,
-              JSON.parse(
-                fs.readFileSync(`${driveCandidates[i]}/.driveduels`, 'utf8')
-              ),
+              {
+                profile: JSON.parse(
+                  fs.readFileSync(`${driveCandidates[i]}/.driveduels`, 'utf8')
+                ),
+                bytelings: files
+                  .filter((elem) => elem.slice(-9) === '.byteling')
+                  .map((elem) =>
+                    JSON.parse(
+                      fs.readFileSync(`${driveCandidates[i]}/${elem}`, 'utf8')
+                    )
+                  ),
+              },
             ]
-          console.log('driveConfigs', driveConfigs)
+            console.log('driveConfigs', JSON.stringify(driveConfigs))
+          }
         } catch {
           continue
         }
