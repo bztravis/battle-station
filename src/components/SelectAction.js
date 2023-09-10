@@ -28,16 +28,45 @@ export default function SelectAction({
                   console.log('newState[player]', newState[player])
                   newState[player][
                     activeBytelings[player]
-                  ].stats.currentHealth += elem.effects.selfHp
-                  newState[player][activeBytelings[player]].stats.currentMana +=
-                    elem.effects.selfMana
+                  ].stats.currentHealth = Math.min(
+                    Math.max(
+                      newState[player][activeBytelings[player]].stats
+                        .currentHealth + elem.effects.selfHp,
+                      0
+                    ),
+                    100
+                  )
+                  newState[player][activeBytelings[player]].stats.currentMana =
+                    Math.min(
+                      Math.max(
+                        newState[player][activeBytelings[player]].stats
+                          .currentMana + elem.effects.selfMana,
+                        0
+                      ),
+                      100
+                    )
                   const opponent = player ? 0 : 1
                   newState[opponent][
                     activeBytelings[opponent]
-                  ].stats.currentHealth += elem.effects.enemyHp
+                  ].stats.currentHealth = Math.min(
+                    Math.max(
+                      newState[opponent][activeBytelings[opponent]].stats
+                        .currentHealth + elem.effects.enemyHp,
+                      0
+                    ),
+                    100
+                  )
                   newState[opponent][
                     activeBytelings[opponent]
-                  ].stats.currentMana += elem.effects.enemyMana
+                  ].stats.currentMana = Math.min(
+                    Math.max(
+                      newState[opponent][activeBytelings[opponent]].stats
+                        .currentMana + elem.effects.enemyMana,
+                      0
+                    ),
+                    100
+                  )
+
                   console.log('newState', newState)
 
                   setPlayerTurn((prevTurn) => {
