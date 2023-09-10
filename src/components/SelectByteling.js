@@ -25,8 +25,8 @@ export default function SelectByteling({
                 console.log('newState', newState)
                 setPlayerTurn((prev) => {
                   console.log('prev', prev)
-                  turnFlow[prev].next(bytelings)
                   console.log(turnFlow[prev].next(bytelings))
+                  return turnFlow[prev].next(bytelings)
                 })
                 return newState
               })
