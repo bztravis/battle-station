@@ -3,6 +3,7 @@ import { useState } from 'react'
 import styles from '../styles/PreGameScreen.css'
 
 export default function PreGameScreen({ drives, setInGame }) {
+  setTimeout(() => setInGame(true), 5000)
   return (
     <div className={`container`}>
       <h1>Players, ready your drives!</h1>

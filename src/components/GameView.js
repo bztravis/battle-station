@@ -4,11 +4,24 @@ import styles from '../styles/gameView.css'
 
 export default function GameView({ drives, setInGame }) {
   const [playerTurn, setPlayerTurn] = useState(0)
-  const [activeBytelings, setActiveBytelings] = useState([null, null])
   const [bytelings, setBytelings] = useState([
     drives[0]?.bytelings,
     drives[1]?.bytelings,
   ])
+  const [activeBytelings, setActiveBytelings] = useState([
+    drives[0]?.bytelings[0],
+    drives[1]?.bytelings[0],
+  ])
+  console.log('drives', drives)
+
+  useEffect(() => {
+    setBytelings([drives[0]?.bytelings, drives[1]?.bytelings])
+  }, [drives])
+
+  useEffect(() => {
+    setActiveBytelings([drives[0]?.bytelings[0], drives[1]?.bytelings[0]])
+    console.log('bytelings', bytelings)
+  }, [bytelings])
 
   const turnFlow = {
     start: {
@@ -50,9 +63,6 @@ export default function GameView({ drives, setInGame }) {
     },
   }
 
-  // useEffect(() => {}, [playerTurn])
-
-  console.log('drives', drives)
   return (
     <div className="container">
       <div className="infoContainer">
@@ -81,11 +91,25 @@ export default function GameView({ drives, setInGame }) {
       </div>
       <div className="bytelingContainer">
         <div className="byteling">
-          <div className="platform"></div>
+          <div className="platform">
+            <div
+              className="sprite"
+              style={{
+                backgroundImage: `url(${activeBytelings?.[0]?.imageUrl})`,
+              }}
+            ></div>
+          </div>
           <div className=""></div>
         </div>
         <div className="byteling">
-          <div className="platform"></div>
+          <div className="platform">
+            <div
+              className="sprite"
+              style={{
+                backgroundImage: `url(${activeBytelings?.[1]?.imageUrl})`,
+              }}
+            ></div>
+          </div>
           <div className=""></div>
         </div>
       </div>

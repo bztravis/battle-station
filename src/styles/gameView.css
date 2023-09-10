@@ -56,3 +56,8 @@
   height: 86px;
   background-image: url('/assets/platform.png');
 }
+
+.sprite {
+  width: 200px;
+  height: 200px;
+}
