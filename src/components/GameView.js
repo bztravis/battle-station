@@ -59,9 +59,6 @@ export default function GameView({ drives, setInGame }) {
     },
   }
 
-  console.log(bytelings)
-  console.log(activeBytelings[0])
-
   return (
     <div className="container">
       <div className="infoContainer">
