@@ -15,7 +15,7 @@ export default function BattleStation() {
   })
   let [drives, setDrives] = useState([])
   useEffect(() => {
-    window.electronAPI.onUpdateDrives((drives) => {
+    window.electronAPI.onUpdateDrives((event, drives) => {
       setDrives(drives)
     })
   }, [])
