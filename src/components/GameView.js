@@ -1,7 +1,9 @@
 import React from 'react'
+import { useState, useEffect } from 'react'
 import styles from '../styles/gameView.css'
 
 export default function GameView({ drives, setInGame }) {
+  const [playerTurn, setPlayerTurn] = useState(1)
   console.log('drives', drives)
   return (
     <div className="container">
@@ -27,6 +29,14 @@ export default function GameView({ drives, setInGame }) {
           >
             {drives[1]?.profile.name ?? 'Waiting for USB...'}
           </p>
+        </div>
+      </div>
+      <div className="bytelingContainer">
+        <div className="byteling">
+          <div className="platform"></div>
+        </div>
+        <div className="byteling">
+          <div className="platform"></div>
         </div>
       </div>
     </div>

@@ -1,6 +1,7 @@
 .container {
   width: 100dvw;
   height: 100dvh;
+  background-image: url('/assets/sky.gif');
 }
 
 .infoContainer {
@@ -17,4 +18,41 @@
   display: inline-flex;
   align-items: center;
   z-index: 1;
+}
+
+@keyframes hoverPulse {
+  0% {
+    position: relative;
+    top: -24px;
+  }
+  50% {
+    position: relative;
+    top: 0px;
+  }
+  100% {
+    position: relative;
+    top: -24px;
+  }
+}
+
+.bytelingContainer {
+  width: 100dvw;
+  height: 300px;
+  padding: 128px;
+  position: fixed;
+  top: 200px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.byteling {
+  width: 300px;
+  height: 400px;
+  animation: hoverPulse infinite 5s;
+}
+
+.platform {
+  width: 290px;
+  height: 86px;
+  background-image: url('/assets/platform.png');
 }
