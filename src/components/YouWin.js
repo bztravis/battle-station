@@ -5,7 +5,7 @@ export default function YouWin({ username }) {
     <div
       style={{
         zIndex: 5,
-        background: 'black',
+        background: '#00000080',
         width: '100dvw',
         height: '100dvh',
         display: 'flex',

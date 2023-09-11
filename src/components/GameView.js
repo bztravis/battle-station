@@ -136,7 +136,7 @@ export default function GameView({ drives, setInGame }) {
       <div className="bytelingContainer">
         <div
           className="byteling"
-          // style={{ scale: parseInt(playerTurn.slice(-1)) === 0 ? 1.1 : 1 }}
+          style={{ scale: parseInt(playerTurn.slice(-1)) === 0 ? 1.3 : 1 }}
         >
           <div className="platform">
             <div
